@@ -9,14 +9,16 @@ end
 switch mode
     case 'alpha'
         
-        params.e0 = 2.5;
-        params.r = 0.56;
+        params.e0 = 2.5;  % max firing rate
+%         params.r = 0.56;  % logistic sigmoid
+        params.r = 3;  % erf sigmoid
         params.v0 = 6;
 
-        params.a = 100;
-        params.b = 50;
+        % inverse time constants
+        params.a = 100;% (1/ tau_e)
+        params.b = 50; % (1/tau_i)
 
-        params.A = 3.25;
+        params.A = 3.25;  % gains (A = excitatory)
 %         params.A = 5;
         params.B = 22;
 

@@ -2,9 +2,9 @@
 % estimation
 
 %%
-% clc
-% close all
-% clear
+clc
+close all
+clear
 
 
 params = SetParametersNM('alpha');
@@ -22,8 +22,9 @@ t = 0:dt:(N-1)*dt;
 
 % Transition model
 NStates = 4;                           
-f = @(x)model_NM(x,'transition',params);
-F = @(x)model_NM(x,'jacobian',params);
+f = @(x)model_NM(x, [], 'transition', params);
+f_analytic = @(x, P)model_NM(x, P, 'analytic', params);
+F = @(x)model_NM(x, [], 'jacobian', params);
 
 % Initialise trajectory state
 x0 = zeros(NStates,1);                   % initial state
@@ -72,7 +73,18 @@ P0 = 100.^2*eye(NStates);
 
 % Apply EKF filter
 %
-m = extended_kalman_filter(y,f,F,H,Q,R,m0,P0);
+% m = extended_kalman_filter(y,f_analytic,F,H,Q,R,m0,P0);
+% 
+% figure
+% ax1=subplot(211);
+% plot(t,x([1],:)'); hold on;
+% plot(t,m([1],:)','--');
+% ax2=subplot(212);
+% plot(t,y)
+
+% Apply analytic KF 
+%
+m = analytic_kalman_filter(y,f_analytic,F,H,Q,R,m0,P0);
 
 figure
 ax1=subplot(211);
