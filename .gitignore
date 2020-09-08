@@ -15,7 +15,8 @@
 .DS_Store
 
 
-*.pdf
+manuscript/*.pdf
+doc/*.pdf
 =======
 # A folder used for temp files not to be added
 scratch/*
